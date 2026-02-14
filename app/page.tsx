@@ -1,64 +1,124 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import PageBackground from "./components/PageBackground";
+import LiquidGlassCard from "./components/LiquidGlassCard";
+import { useTheme } from "./context/ThemeContext";
+
+const TITLES = [
+  "I love you.",
+  "I adore you.",
+  "I admire you.",
+  "You mean the world to me.",
+  "You are my everything",
+  "I love you more than words can say",
+  "You are my gift",
+  "My source of inspiration",
+  "My forever queen"
+];
+
+// Darker colors for light mode (high contrast on light background)
+const TITLE_COLORS_LIGHT = [
+  "#9a4a4f", // lobster-pink darker
+  "#2d5f7a", // cerulean darker
+  "#2f7a77", // tropical-teal darker
+  "#8a6b3a", // warm brown
+];
+
+// Lighter colors for dark mode (high contrast on dark background)
+const TITLE_COLORS_DARK = [
+  "#e07a80", // lobster-pink lighter
+  "#6ba8d4", // cerulean lighter
+  "#6bc4c1", // tropical-teal lighter
+  "#e8c99a", // soft-fawn lighter
+];
+
+const CHAR_MS = 180; // ~35 WPM typing speed
+const PAUSE_AFTER_TYPING_MS = 1500;
 
 export default function Home() {
+  const { theme } = useTheme();
+  const [index, setIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [phase, setPhase] = useState<"typing" | "deleting" | "pause">("typing");
+  const indexRef = useRef(0);
+  const phaseRef = useRef(phase);
+  indexRef.current = index;
+  phaseRef.current = phase;
+
+  const colors = theme === "light" ? TITLE_COLORS_LIGHT : TITLE_COLORS_DARK;
+
+  useEffect(() => {
+    const tick = () => {
+      const i = indexRef.current;
+      const target = TITLES[i];
+
+      setDisplayText((prev) => {
+        const p = phaseRef.current;
+        if (p === "typing") {
+          if (prev === target) {
+            phaseRef.current = "pause";
+            setPhase("pause");
+            return prev;
+          }
+          return target.slice(0, prev.length + 1);
+        }
+        if (p === "deleting") {
+          if (prev.length === 0) {
+            const next = (i + 1) % TITLES.length;
+            indexRef.current = next;
+            phaseRef.current = "typing";
+            setIndex(next);
+            setPhase("typing");
+            return TITLES[next].slice(0, 1);
+          }
+          return prev.slice(0, -1);
+        }
+        return prev;
+      });
+    };
+
+    const id = setInterval(tick, CHAR_MS);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    if (phase === "pause") {
+      const id = setTimeout(() => {
+        phaseRef.current = "deleting";
+        setPhase("deleting");
+      }, PAUSE_AFTER_TYPING_MS);
+      return () => clearTimeout(id);
+    }
+  }, [phase]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="relative min-h-screen overflow-hidden">
+      <PageBackground variant="full" />
+
+      {/* Landing banner */}
+      <main className="flex min-h-screen flex-col items-center justify-center px-6 py-20">
+        <LiquidGlassCard className="mx-auto max-w-3xl rounded-3xl p-8 text-center sm:p-12 md:p-16">
+          <h1
+            className="mb-6 text-4xl font-semibold tracking-tight drop-shadow-sm transition-colors duration-300 sm:text-5xl md:text-6xl"
+            style={{ color: colors[index % colors.length] }}
+          >
+            {displayText}
+            <span
+              className="inline-block"
+              style={{ animation: "caret-blink 1s step-end infinite" }}
+              aria-hidden
+            >
+              |
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mb-4 text-lg leading-relaxed text-[var(--foreground)]/90 sm:text-xl md:text-2xl">
+            This is our canvas—a place where I get to show you, in more ways than one, how much you mean to me, my Isabelita.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <p className="text-base text-[var(--foreground)]/75 sm:text-lg">
+            More to come, my love. &hearts;
+          </p>
+        </LiquidGlassCard>
       </main>
     </div>
   );

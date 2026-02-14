@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
+/* Coolors palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cerulean: #4281a4;
+  --tropical-teal: #48a9a6;
+  --dust-grey: #e4dfda;
+  --soft-fawn: #d4b483;
+  --lobster-pink: #c1666b;
+
+  /* Light mode (default) */
+  --background: #faf9f7;
+  --foreground: #2d2a26;
+  --gradient-orb-1: rgba(193, 102, 107, 0.35);
+  --gradient-orb-2: rgba(212, 180, 131, 0.4);
+  --gradient-orb-3: rgba(72, 169, 166, 0.25);
+  --gradient-orb-4: rgba(66, 129, 164, 0.2);
+  --accent: var(--lobster-pink);
+  --accent-muted: var(--soft-fawn);
+  --accent-cool: var(--cerulean);
+  --accent-teal: var(--tropical-teal);
+  --glass-bg: rgba(250, 249, 247, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: var(--dust-grey);
+  --gradient-orb-1: rgba(193, 102, 107, 0.12);
+  --gradient-orb-2: rgba(100, 80, 140, 0.15);
+  --gradient-orb-3: rgba(72, 169, 166, 0.08);
+  --gradient-orb-4: rgba(66, 129, 164, 0.06);
+  --accent: var(--lobster-pink);
+  --accent-muted: var(--soft-fawn);
+  --accent-cool: #252525;
+  --accent-teal: #242424;
+  --glass-bg: rgba(15, 15, 15, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-domine);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Red heart cursor for clickable elements */
+:root {
+  --cursor-heart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23c1666b' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") 12 12, pointer;
+}
+
+a,
+button,
+[role="button"],
+[data-cursor-heart] {
+  cursor: var(--cursor-heart);
+}
+
+@keyframes caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-domine), Georgia, serif;
+  padding-bottom: 6rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
