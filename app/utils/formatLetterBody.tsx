@@ -17,7 +17,7 @@ const QUOTED_REGEX =
 export function formatLetterBody(body: string): React.ReactNode {
   const lines = body.split("\n");
   const result: React.ReactNode[] = [];
-  let key = 0;
+  let partId = 0;
 
   for (let i = 0; i < lines.length; i++) {
     if (i > 0) result.push(<br key={`br-${i}`} />);
@@ -38,8 +38,9 @@ export function formatLetterBody(body: string): React.ReactNode {
       const content = match[2] ?? match[4] ?? match[6] ?? "";
       const open = match[1] ?? (match[4] !== undefined ? "\u201C" : match[5]) ?? "";
       const close = match[3] ?? (match[4] !== undefined ? "\u201D" : match[7]) ?? "";
+      const k = partId++;
       parts.push(
-        <React.Fragment key={key++}>
+        <React.Fragment key={`part-${k}`}>
           {open}
           <em>{content}</em>
           {close}
@@ -49,13 +50,13 @@ export function formatLetterBody(body: string): React.ReactNode {
     }
 
     if (parts.length === 0) {
-      result.push(line);
+      result.push(<React.Fragment key={`line-${i}`}>{line}</React.Fragment>);
     } else {
       if (lastIndex < line.length) parts.push(line.slice(lastIndex));
       result.push(
-        <React.Fragment key={i}>
+        <React.Fragment key={`line-${i}`}>
           {parts.map((p, j) =>
-            React.isValidElement(p) ? p : <span key={j}>{p}</span>
+            React.isValidElement(p) ? p : <span key={`part-${partId++}`}>{p}</span>
           )}
         </React.Fragment>
       );

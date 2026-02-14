@@ -29,20 +29,40 @@ export const LOVE_LETTERS: LoveLetter[] = [
     id: "1",
     date: "February 14, 2026",
     title: "On our first Valentine's",
-    body: `I woke up this morning and the first thought was you. Not the coffee. Not the alarm. You.
+    body: `Since it is a day of firsts, I will reminisce on a bunch of our firsts.
 
-There are days when I still can't believe we found each other. Out of all the people, all the moments, all the possible paths—we're here. Together.
+The day I met you as you radiantly danced into my life. 
 
-This letter is just to say: thank you. For being exactly who you are. For the way you laugh at my jokes (even the bad ones). For holding my hand when I'm nervous. For making ordinary days feel extraordinary.
+The first time I looked into your eyes - those honey brown depths that I could not help but wade in.
 
-I love you. Today and every day.`,
-    bodyEs: `Desperté esta mañana y el primer pensamiento fuiste tú. No el café. No la alarma. Tú.
+The first time we touched - as you placed your hand on mine to dance. I was not very good, but your grace eased me safely into unfamiliar territory.
 
-Hay días en que aún no puedo creer que nos encontramos. De todas las personas, todos los momentos, todos los caminos posibles—estamos aquí. Juntos.
+The first time we kissed - as the world faded away the moment our lips met. I immediately knew I wanted to kiss those lips a thousand times more.
 
-Esta carta es solo para decir: gracias. Por ser exactamente quien eres. Por la forma en que te ríes de mis chistes (incluso los malos). Por tomarme de la mano cuando estoy nervioso. Por hacer que los días ordinarios se sientan extraordinarios.
+The first time you cried - in my car outside whole foods. Something within me shifted and my whole being scrambled to ease whatever pain made those precious tears fall.
 
-Te amo. Hoy y todos los días.`,
+The first time I told you I loved you - it was scary and vulnerable and it was just right.
+
+The first time you told me you loved me - it felt like angels finally sang in my ears a song I have longed for.
+
+There are so many tiny and big firsts, some we will forget, but all will be cherished. And since this is our first valentine, with my heart burstling with love, I say "Happy valentine mi amor"`,
+    bodyEs: `Ya que hoy es un día de primeras veces, voy a recordar varias de nuestras primeras veces.
+
+El día en que te conocí, cuando entraste en mi vida bailando con esa luz tan tuya.
+
+La primera vez que miré tus ojos — esas profundidades color miel en las que no pude evitar sumergirme.
+
+La primera vez que nos tocamos — cuando pusiste tu mano sobre la mía para bailar. Yo no era muy bueno, pero tu gracia me llevó con suavidad y seguridad a un territorio desconocido.
+
+La primera vez que nos besamos — cuando el mundo se desvaneció en el instante en que nuestros labios se encontraron. Supe de inmediato que quería besar esos labios mil veces más.
+
+La primera vez que lloraste — en mi carro, afuera de Whole Foods. Algo dentro de mí cambió y todo mi ser se movilizó para aliviar cualquier dolor que hiciera caer esas lágrimas tan preciadas.
+
+La primera vez que te dije que te amaba — fue aterrador y vulnerable, y fue perfecto.
+
+La primera vez que me dijiste que me amabas — se sintió como si por fin los ángeles cantaran en mis oídos una canción que había anhelado por tanto tiempo.
+
+Hay tantas primeras veces, pequeñas y grandes. Algunas las olvidaremos, pero todas serán atesoradas. Y como este es nuestro primer San Valentín, con el corazón rebosando de amor, te digo: “Feliz San Valentín, mi amor.”`,
   },
   {
     id: "2",
